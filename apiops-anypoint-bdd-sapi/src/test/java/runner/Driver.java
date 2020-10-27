@@ -87,7 +87,7 @@ public class Driver{
 	}
 	
 	@SuppressWarnings("unchecked")
-	private String getManipulatedString(String jsonString) throws JsonMappingException, JsonProcessingException {
+	private String getManipulatedString(String jsonString) throws IOException {
 		JSONObject jsonObject = new JSONObject();
 		ObjectMapper objectmapper = new ObjectMapper();
 		
