@@ -34,20 +34,8 @@ pipeline {
       }
     }
 
-    stage('Email') {
-      steps {
-        emailext(subject: 'Testing Reports for $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'Please find the functional testing reports. In order to check the logs also, please go to url: $BUILD_URL', attachmentsPattern: 'apiops-anypoint-bdd-sapi/target/cucumber-reports/report.html', from: 'testmailsnjc@gmail.com', mimeType: 'text/html', to: 'raviteja.madishetty@njclabs.com')
-      }
-    }
-
   }
   tools {
     maven 'Maven'
-  }
-  post {
-    failure {
-      emailext(subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'Please find attached logs.', attachLog: true, from: 'testmailsnjc@gmail.com', to: 'vikas_mullana@yahoo.com')
-    }
-
   }
 }
