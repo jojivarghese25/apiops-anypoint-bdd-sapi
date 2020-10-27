@@ -9,7 +9,7 @@ pipeline {
 
     stage('build') {
       steps {
-        sh 'mvn -f apiops-anypoint-bdd-sapi/pom.xml clean install'
+        bat 'mvn -f apiops-anypoint-bdd-sapi/pom.xml clean install'
       }
     }
 
