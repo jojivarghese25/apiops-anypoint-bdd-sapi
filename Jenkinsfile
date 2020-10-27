@@ -7,6 +7,12 @@ pipeline {
       }
     }
 
+    stage('build') {
+      steps {
+        sh 'mvn clean install '
+      }
+    }
+
   }
   tools {
     maven 'Maven'
