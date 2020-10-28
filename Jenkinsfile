@@ -7,6 +7,12 @@ pipeline {
       }
     }
 
+    stage('email') {
+      steps {
+        emailext(body: 'Hello', subject: 'Jenkins', to: 'madishettyraviteja2011@gmail.com')
+      }
+    }
+
   }
   tools {
     maven 'Maven'
