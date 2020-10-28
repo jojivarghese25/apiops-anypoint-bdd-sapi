@@ -17,4 +17,10 @@ pipeline {
   tools {
     maven 'Maven'
   }
+  post {
+    failure {
+      emailext(subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'Please find attached logs.', attachLog: true, from: 'test.example.demo123@gmail.com', to: 'raviteja.madishetty@njclabs.com')
+    }
+
+  }
 }
