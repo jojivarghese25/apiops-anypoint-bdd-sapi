@@ -1,15 +1,24 @@
 pipeline {
   agent any
   stages {
-    stage('hello') {
+    stage('gitclone') {
       steps {
-        echo 'Hello'
+        git 'https://github.com/Mr-Raviteja/apiops-anypoint-bdd-sapi.git'
       }
     }
 
-    stage('email') {
+    stage('Build') {
       steps {
-        emailext(body: 'Hello', subject: 'Jenkins', to: 'madishettyraviteja2011@gmail.com')
+        withEnv(overrides: ["JAVA_HOME=${ tool 'JDK 8' }", "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
+          bat 'mvn -f apiops-anypoint-bdd-sapi/pom.xml clean install -Dtestfile=runner.TestRunner.java'
+        }
+
+      }
+    }
+
+    stage('Email') {
+      steps {
+        emailext(subject: 'Testing Reports for $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'Please find the functional testing reports. In order to check the logs also, please go to url: $BUILD_URL', attachmentsPattern: 'apiops-anypoint-bdd-sapi/target/cucumber-reports/report.html', from: 'test.example.demo123@gmail.com', mimeType: 'text/html', to: 'raviteja.madishetty@njclabs.com', attachLog: true)
       }
     }
 
@@ -18,8 +27,8 @@ pipeline {
     maven 'Maven'
   }
   post {
-    always {
-      emailext(subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'madishettyraviteja2011@gmail.com', to: 'raviteja.madishetty@njclabs.com')
+    failure {
+      emailext(subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'Please find attached logs.', attachLog: true, from: 'test.example.demo123@gmail.com', to: 'raviteja.madishetty@njclabs.com')
     }
 
   }
