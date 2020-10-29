@@ -7,6 +7,12 @@ pipeline {
       }
     }
 
+    stage('hello') {
+      steps {
+        echo "${props[email.from]}"
+      }
+    }
+
     stage('Build') {
       steps {
         withEnv(overrides: ["JAVA_HOME=${ tool 'JDK 8' }", "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
