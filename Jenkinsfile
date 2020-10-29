@@ -13,16 +13,7 @@ pipeline {
           readProps= readProperties file: 'build.properties'
         }
 
-        echo "${readProps['email.from']}"
-      }
-    }
-
-    stage('Build') {
-      steps {
-        withEnv(overrides: ["JAVA_HOME=${ tool 'JDK 8' }", "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
-          bat 'mvn -f apiops-anypoint-bdd-sapi/pom.xml clean install'
-        }
-
+        echo "${readProps['email.to']}"
       }
     }
 
