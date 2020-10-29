@@ -28,7 +28,7 @@ pipeline {
 
     stage('Email') {
       steps {
-        emailext(subject: 'Testing Reports for $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'please go to url: $BUILD_URL.'+readFile("bodyStuff.html"), attachmentsPattern: 'apiops-anypoint-bdd-sapi/target/cucumber-reports/report.html', from: 'test.example.demo123@gmail.com', mimeType: 'text/html', to: 'raviteja.madishetty@njclabs.com', attachLog: true)
+        emailext(subject: 'Testing Reports for $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'please go to url: $BUILD_URL.'+readFile("bodyStuff.html"), attachmentsPattern: 'report.html', from: "${readProps['email.from']}", mimeType: 'text/html', to: 'raviteja.madishetty@njclabs.com', attachLog: true)
       }
     }
 
