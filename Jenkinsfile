@@ -9,7 +9,11 @@ pipeline {
 
     stage('hello') {
       steps {
-        echo "${props[email.from]}"
+        script {
+          readProps= readProperties file: 'build.properties'
+        }
+
+        echo "${readProps['email.from']}"
       }
     }
 
