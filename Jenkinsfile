@@ -52,6 +52,17 @@ pipeline {
       }
     }
 
+    stage('Kill container') {
+      steps {
+        script {
+          containerId= bat 'docker ps -a -q  --filter ancestor=ravisunny27/apiops-anypoint-bdd-sapi'
+          bat 'docker kill ${containerId}'
+        }
+
+        echo 'container Killed'
+      }
+    }
+
   }
   tools {
     maven 'Maven'
