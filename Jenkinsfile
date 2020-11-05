@@ -5,8 +5,10 @@ pipeline {
       steps {
         script {
           containerId = bat 'docker ps -a -q  --filter ancestor=nginx'
+          env.container = bat 'docker ps -a -q  --filter ancestor=nginx'
 
-          echo "${containerId}"
+          echo "$containerId"
+          echo 'env.container'
         }
 
         echo 'container Killed'
@@ -80,6 +82,9 @@ pipeline {
   tools {
     maven 'Maven'
   }
+  environment {
+    container = ''
+  }
   post {
     failure {
       emailext(subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'Please find attached logs.', attachLog: true, from: 'test.example.demo123@gmail.com', to: 'raviteja.madishetty@njclabs.com')
@@ -87,6 +92,6 @@ pipeline {
 
   }
   parameters {
-    string(name: 'containerId', defaultValue: '')
+    string(name: containerId, defaultValue: '')
   }
 }
