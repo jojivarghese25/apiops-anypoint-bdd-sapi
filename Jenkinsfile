@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('gitclone') {
       steps {
-        git 'https://github.com/Mr-Raviteja/apiops-anypoint-bdd-sapi.git'
+        git(url: 'https://github.com/Mr-Raviteja/apiops-anypoint-bdd-sapi.git', branch: 'master')
       }
     }
 
