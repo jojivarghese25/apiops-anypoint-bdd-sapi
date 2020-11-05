@@ -7,19 +7,6 @@ pipeline {
       }
     }
 
-    stage('check container') {
-      steps {
-        script {
-          containerId = bat 'docker ps -a -q  --filter ancestor=nginx'
-
-
-          echo "${containerId}"
-        }
-
-        echo 'container Killed'
-      }
-    }
-
     stage('maven build') {
       steps {
         withEnv(overrides: ["JAVA_HOME=${ tool 'JDK 8' }", "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
@@ -86,8 +73,5 @@ pipeline {
       emailext(subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'Please find attached logs.', attachLog: true, from: 'test.example.demo123@gmail.com', to: 'raviteja.madishetty@njclabs.com')
     }
 
-  }
-  parameters {
-    string(name: containerId, defaultValue: '12')
   }
 }
