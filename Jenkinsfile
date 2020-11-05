@@ -1,6 +1,18 @@
 pipeline {
   agent any
   stages {
+    stage('check container') {
+      steps {
+        script {
+          def containerId = bat 'docker ps -a -q  --filter ancestor=nginx'
+
+          echo "${containerId}"
+        }
+
+        echo 'container Killed'
+      }
+    }
+
     stage('gitclone') {
       steps {
         git 'https://github.com/Mr-Raviteja/apiops-anypoint-bdd-sapi.git'
