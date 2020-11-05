@@ -7,7 +7,7 @@ pipeline {
           containerId = bat 'docker ps -a -q  --filter ancestor=nginx'
           env.container = bat 'docker ps -a -q  --filter ancestor=nginx'
 
-          echo "$containerId"
+          echo "${containerId}"
           echo "${env.container}"
         }
 
