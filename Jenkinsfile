@@ -11,10 +11,9 @@ pipeline {
       steps {
         script {
           containerId = bat 'docker ps -a -q  --filter ancestor=nginx'
-          env.container = bat 'docker ps -a -q  --filter ancestor=nginx'
+
 
           echo "${containerId}"
-          echo "${env.container}"
         }
 
         echo 'container Killed'
@@ -81,9 +80,6 @@ pipeline {
   }
   tools {
     maven 'Maven'
-  }
-  environment {
-    container = ''
   }
   post {
     failure {
