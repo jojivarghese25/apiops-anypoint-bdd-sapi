@@ -26,6 +26,16 @@ pipeline {
       }
     }
 
+    stage('Run container') {
+      steps {
+        script {
+          bat 'docker run -itd -p 8081:8081 ravisunny27/apiops-anypoint-bdd-sapi'
+        }
+
+        echo 'container running'
+      }
+    }
+
     stage('read properties files') {
       steps {
         script {
