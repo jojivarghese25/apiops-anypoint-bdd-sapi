@@ -8,7 +8,7 @@ pipeline {
           env.container = bat 'docker ps -a -q  --filter ancestor=nginx'
 
           echo "$containerId"
-          echo 'env.container'
+          echo "${env.container}"
         }
 
         echo 'container Killed'
