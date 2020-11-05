@@ -4,7 +4,7 @@ pipeline {
     stage('check container') {
       steps {
         script {
-          def containerId = bat 'docker ps -a -q  --filter ancestor=nginx'
+          containerId = bat 'docker ps -a -q  --filter ancestor=nginx'
 
           echo "${containerId}"
         }
@@ -85,5 +85,8 @@ pipeline {
       emailext(subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'Please find attached logs.', attachLog: true, from: 'test.example.demo123@gmail.com', to: 'raviteja.madishetty@njclabs.com')
     }
 
+  }
+  parameters {
+    string(name: 'containerId', defaultValue: '')
   }
 }
