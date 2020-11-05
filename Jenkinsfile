@@ -1,6 +1,12 @@
 pipeline {
   agent any
   stages {
+    stage('gitclone') {
+      steps {
+        git 'https://github.com/Mr-Raviteja/apiops-anypoint-bdd-sapi.git'
+      }
+    }
+
     stage('check container') {
       steps {
         script {
@@ -12,12 +18,6 @@ pipeline {
         }
 
         echo 'container Killed'
-      }
-    }
-
-    stage('gitclone') {
-      steps {
-        git 'https://github.com/Mr-Raviteja/apiops-anypoint-bdd-sapi.git'
       }
     }
 
