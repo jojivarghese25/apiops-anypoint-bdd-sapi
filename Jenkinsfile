@@ -16,6 +16,16 @@ pipeline {
       }
     }
 
+    stage('Build image') {
+      steps {
+        script {
+          app = docker.build("ravisunny27/apiops-anypoint-bdd-sapi")
+        }
+
+        echo 'image built'
+      }
+    }
+
     stage('read properties files') {
       steps {
         script {
