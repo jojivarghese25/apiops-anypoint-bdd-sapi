@@ -92,6 +92,6 @@ pipeline {
 
   }
   parameters {
-    string(name: containerId, defaultValue: '')
+    string(name: containerId, defaultValue: '12')
   }
 }
