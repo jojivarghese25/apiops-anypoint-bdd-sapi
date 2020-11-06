@@ -56,8 +56,8 @@ pipeline {
       steps {
         script {
           def containerId = bat 'docker ps -a -q  --filter ancestor=ravisunny27/apiops-anypoint-bdd-sapi'
-          bat 'docker kill $CID'
-          echo '$CID'
+          bat 'docker kill ${CID}'
+          echo '${CID}'
         }
 
         echo 'container Killed'
