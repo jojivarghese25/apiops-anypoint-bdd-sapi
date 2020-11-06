@@ -29,7 +29,7 @@ pipeline {
     stage('Run container') {
       steps {
         script {
-          dockerContainer = dockerImage.run()
+          bat 'docker run -itd -p 8081:8081 --name apiops-anypoint-bdd-sapi  ravisunny27/apiops-anypoint-bdd-sapi'
         }
 
         echo 'container running'
@@ -55,7 +55,7 @@ pipeline {
     stage('Kill container') {
       steps {
         script {
-          dockerContainer.stop()
+          bat 'docker stop apiops-anypoint-bdd-sapi'
         }
 
         echo 'container Killed'
