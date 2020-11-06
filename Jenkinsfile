@@ -19,7 +19,8 @@ pipeline {
     stage('Build image') {
       steps {
         script {
-          app = docker.build("ravisunny27/apiops-anypoint-bdd-sapi")
+          dockerImage= docker.build("ravisunny27/apiops-anypoint-bdd-sapi")
+          pipelineContext.dockerImage = dockerImage
         }
 
         echo 'image built'
@@ -29,7 +30,7 @@ pipeline {
     stage('Run container') {
       steps {
         script {
-          bat 'CID=docker run -itd -p 8081:8081 ravisunny27/apiops-anypoint-bdd-sapi'
+          pipelineContext.dockerContainer = pipelineContext.dockerImage.run()
         }
 
         echo 'container running'
@@ -55,9 +56,9 @@ pipeline {
     stage('Kill container') {
       steps {
         script {
-          def containerId = bat 'docker ps -a -q  --filter ancestor=ravisunny27/apiops-anypoint-bdd-sapi'
-          bat 'docker kill ${CID}'
-          echo '${CID}'
+          if (pipelineContext && pipelineContext.dockerContainer) {
+            pipelineContext.dockerContainer.stop()
+          }
         }
 
         echo 'container Killed'
