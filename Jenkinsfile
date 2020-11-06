@@ -29,7 +29,7 @@ pipeline {
     stage('Run container') {
       steps {
         script {
-          bat 'CID=$docker run -itd -p 8081:8081 ravisunny27/apiops-anypoint-bdd-sapi'
+          bat 'CID=docker run -itd -p 8081:8081 ravisunny27/apiops-anypoint-bdd-sapi'
         }
 
         echo 'container running'
