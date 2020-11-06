@@ -20,7 +20,6 @@ pipeline {
       steps {
         script {
           dockerImage= docker.build("ravisunny27/apiops-anypoint-bdd-sapi")
-          pipelineContext.dockerImage = dockerImage
         }
 
         echo 'image built'
@@ -30,7 +29,7 @@ pipeline {
     stage('Run container') {
       steps {
         script {
-          pipelineContext.dockerContainer = pipelineContext.dockerImage.run()
+          dockerContainer = dockerImage.run()
         }
 
         echo 'container running'
@@ -56,9 +55,7 @@ pipeline {
     stage('Kill container') {
       steps {
         script {
-          if (pipelineContext && pipelineContext.dockerContainer) {
-            pipelineContext.dockerContainer.stop()
-          }
+          dockerContainer.stop()
         }
 
         echo 'container Killed'
