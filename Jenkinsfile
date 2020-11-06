@@ -29,7 +29,7 @@ pipeline {
     stage('Run container') {
       steps {
         script {
-          bat 'docker run -itd -p 8081:8081 ravisunny27/apiops-anypoint-bdd-sapi'
+          bat 'CID=$docker run -itd -p 8081:8081 ravisunny27/apiops-anypoint-bdd-sapi'
         }
 
         echo 'container running'
@@ -56,8 +56,8 @@ pipeline {
       steps {
         script {
           def containerId = bat 'docker ps -a -q  --filter ancestor=ravisunny27/apiops-anypoint-bdd-sapi'
-
-          echo 'containerId'
+          bat 'docker kill $CID'
+          echo '$CID'
         }
 
         echo 'container Killed'
