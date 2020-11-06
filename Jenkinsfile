@@ -55,7 +55,7 @@ pipeline {
     stage('Kill container') {
       steps {
         script {
-          bat 'docker stop apiops-anypoint-bdd-sapi'
+          bat 'docker rm -f apiops-anypoint-bdd-sapi'
         }
 
         echo 'container Killed'
