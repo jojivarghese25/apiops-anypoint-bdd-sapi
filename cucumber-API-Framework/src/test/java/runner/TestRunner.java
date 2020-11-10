@@ -15,6 +15,8 @@ import cucumber.api.junit.Cucumber;
 	
         monochrome = true)
 public class TestRunner {
-	@AfterClass public static void writeExtentReport() { Reporter.loadXMLConfig(System.getProperty("user.dir")+File.separator+ "src"+File.separator+"test"+File.separator+"resources"+File.separator+"config"+File.separator+"extent_report-config.xml"); }
+	@AfterClass public static void writeExtentReport() { 
+		Reporter.loadXMLConfig("src/test/resources/config/extent_report-config.xml"); 
+	}
 	
 }
