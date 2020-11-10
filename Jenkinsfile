@@ -54,7 +54,7 @@ pipeline {
     stage('read properties files') {
       steps {
         script {
-          readProps= readProperties file: 'apiops-anypoint-bdd-sapi/email.properties'
+          readProps= readProperties file: 'cucumber-API-Framework/src/main/resources/email.properties'
         }
 
         echo "${readProps['email.to']}"
@@ -63,7 +63,7 @@ pipeline {
 
     stage('Email') {
       steps {
-        emailext(subject: 'Testing Reports for $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'please go to url: $BUILD_URL.'+readFile("apiops-anypoint-bdd-sapi/emailTemplate.html"), attachmentsPattern: 'report.html', from: "${readProps['email.from']}", mimeType: 'text/html', to: "${readProps['email.to']}", attachLog: true)
+        emailext(subject: 'Testing Reports for $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'please go to url: $BUILD_URL.'+readFile("cucumber-API-Framework/src/main/resources/emailTemplate.html"), attachmentsPattern: 'cucumber-API-Framework/target/cucumber-reports/report.html', from: "${readProps['email.from']}", mimeType: 'text/html', to: "${readProps['email.to']}", attachLog: true)
       }
     }
 
