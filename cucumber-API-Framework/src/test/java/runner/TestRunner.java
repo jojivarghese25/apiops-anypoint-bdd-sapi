@@ -12,7 +12,9 @@ import cucumber.api.junit.Cucumber;
         glue = {"stepDefinition"},
         plugin = {"pretty", "html:target/cucumber-reports", "json:target/cucumber.json",
         			"com.vimalselvam.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html"},
+	
         monochrome = true)
 public class TestRunner {
+	@AfterClass public static void writeExtentReport() { Reporter.loadXMLConfig(System.getProperty("user.dir")+File.separator+ "src"+File.separator+"test"+File.separator+"resources"+File.separator+"config"+File.separator+"extent_report-config.xml"); }
 	
 }
