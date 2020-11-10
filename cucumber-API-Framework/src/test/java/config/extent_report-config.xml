@@ -3,22 +3,23 @@
   <configuration>
     <theme>standard</theme>
     <encoding>UTF-8</encoding>
-    <protocol>https</protocol>
-    <documentTitle>Selenium Cucumber Framework</documentTitle>
-    <reportName>Test Report</reportName>
+    <protocol>http</protocol>
+    <documentTitle>Cucumber Framework</documentTitle>
+    <reportName>NJC Report</reportName>
+    <brand-logo></brand-logo>
     <dateFormat>MM/dd/yyyy</dateFormat>
     <timeFormat>HH:mm:ss</timeFormat>
     <scripts>
       <![CDATA[
-        $(document).ready(function() {
-        
-        });
+        $(document).ready(function() { $(".brand-logo").replaceWith( "<img src='src/test/resources/NJC LOGO.png' />" ); });
       ]]>
+      
     </scripts>
     
     <!-- custom styles -->
     <styles>
       <![CDATA[
+img { height: 50px; width: 50px; } .report-name { margin-left: 20px; margin-top: 0px; margin-bottom: 50px; padding-bottom: 0px; font-size: xxx-large;
         
       ]]>
     </styles>
