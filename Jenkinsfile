@@ -36,10 +36,25 @@ pipeline {
       }
     }
 
+    stage('FunctionalTesting') {
+      steps {
+        
+        withEnv(overrides: ["JAVA_HOME=${ tool 'JDK 8' }", "PATH+MAVEN=${tool 'Maven'}/bin:${env.JAVA_HOME}/bin"]) {
+          sh 'mvn -f cucumber-API-Framework/pom.xml test -Dtestfile=/src/test/java/runner.TestRunner.java'
+        }
+
+      }
+    }
+    stage('GenerateReports') {
+      steps {
+        cucumber(failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: 'cucumber.json', jsonReportDirectory: 'cucumber-API-Framework/target', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1)
+      }
+    }
+    
     stage('read properties files') {
       steps {
         script {
-          readProps= readProperties file: 'build.properties'
+          readProps= readProperties file: 'apiops-anypoint-bdd-sapi/email.properties'
         }
 
         echo "${readProps['email.to']}"
@@ -48,7 +63,7 @@ pipeline {
 
     stage('Email') {
       steps {
-        emailext(subject: 'Testing Reports for $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'please go to url: $BUILD_URL.'+readFile("bodyStuff.html"), attachmentsPattern: 'report.html', from: "${readProps['email.from']}", mimeType: 'text/html', to: "${readProps['email.to']}", attachLog: true)
+        emailext(subject: 'Testing Reports for $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: 'please go to url: $BUILD_URL.'+readFile("apiops-anypoint-bdd-sapi/emailTemplate.html"), attachmentsPattern: 'report.html', from: "${readProps['email.from']}", mimeType: 'text/html', to: "${readProps['email.to']}", attachLog: true)
       }
     }
 
